@@ -1,0 +1,254 @@
++-main() <int main (void) at test_vectors.c:57>
+  +-sprintf()
+  +-fopen()
+  +-printf()
+  +-randombytes_init() <void randombytes_init (unsigned char *entropy_input, unsigned char *personalization_string, int security_strength) at rng.c:139>
+  | +-memcpy()
+  | +-memset()
+  | \-AES256_CTR_DRBG_Update() <void AES256_CTR_DRBG_Update (unsigned char *provided_data, unsigned char *Key, unsigned char *V) at rng.c:189>
+  |   \-memcpy()
+  +-fclose()
+  +-fprintf()
+  +-FindMarker() <int FindMarker (FILE *infile, const char *marker) at PQCgenKAT_kem.c:134>
+  | +-strlen()
+  | +-fgetc()
+  | \-strncmp()
+  +-fscanf()
+  +-ReadHex() <int ReadHex (FILE *infile, unsigned char *A, int Length, char *str) at PQCgenKAT_kem.c:174>
+  | +-memset()
+  | +-FindMarker() <int FindMarker (FILE *infile, const char *marker) at PQCgenKAT_kem.c:134> [see 12]
+  | +-fgetc()
+  | \-isxdigit()
+  +-fprintBstr() <void fprintBstr (FILE *fp, char *S, unsigned char *A, unsigned long long L) at PQCgenKAT_kem.c:218>
+  | \-fprintf()
+  +-crypto_kem_keypair() <int crypto_kem_keypair (uint8_t *pk, uint8_t *sk) at kem.c:24>
+  | +-indcpa_keypair() <void indcpa_keypair (uint8_t pk[KYBER_INDCPA_PUBLICKEYBYTES], uint8_t sk[KYBER_INDCPA_SECRETKEYBYTES]) at indcpa.c:460>
+  | | +-randombytes() <void randombytes (uint8_t *x, size_t xlen) at test_vectors.c:41>
+  | | | +-CryptAcquireContext()
+  | | | +-abort()
+  | | | +-CryptGenRandom()
+  | | | +-CryptReleaseContext()
+  | | | +-syscall()
+  | | | +-open()
+  | | | +-read()
+  | | | +-AES256_ECB() <void AES256_ECB (unsigned char *key, unsigned char *ctr, unsigned char *buffer) at rng.c:116>
+  | | | | +-EVP_CIPHER_CTX_new()
+  | | | | +-handleErrors() <void handleErrors (void) at rng.c:105>
+  | | | | | +-ERR_print_errors_fp()
+  | | | | | \-abort()
+  | | | | +-EVP_EncryptInit_ex()
+  | | | | +-EVP_aes_256_ecb()
+  | | | | +-EVP_EncryptUpdate()
+  | | | | \-EVP_CIPHER_CTX_free()
+  | | | +-memcpy()
+  | | | +-AES256_CTR_DRBG_Update() <void AES256_CTR_DRBG_Update (unsigned char *provided_data, unsigned char *Key, unsigned char *V) at rng.c:189> [see 8]
+  | | | +-surf() <void surf (void) at test_vectors.c:22>
+  | | | | \-MUSH()
+  | | | \-printf()
+  | | +-hash_g()
+  | | +-gen_a()
+  | | +-ALIGNED_UINT8()
+  | | +-aes256ctr_init() <void aes256ctr_init (aes256ctr_ctx *state, const uint8_t key[32], uint64_t nonce) at aes256ctr.c:56>
+  | | | +-BLOCK1()
+  | | | \-BLOCK2()
+  | | +-aes256ctr_squeezeblocks() <void aes256ctr_squeezeblocks (uint8_t *out, size_t nblocks, aes256ctr_ctx *state) at aes256ctr.c:112>
+  | | | \-aesni_encrypt4() <inline void aesni_encrypt4 (uint8_t out[64], __m128i *n, const __m128i rkeys[16]) at aes256ctr.c:11>
+  | | +-poly_cbd_eta1() <void poly_cbd_eta1 (poly *r, const __m256i buf[KYBER_ETA1 *KYBER_N / 128 +1]) at cbd.c:126>
+  | | | +-cbd2() <void cbd2 (poly *restrict r, const __m256i buf[2 *KYBER_N / 128]) at cbd.c:16>
+  | | | \-cbd3() <void cbd3 (poly *restrict r, const uint8_t buf[3 *KYBER_N / 4 +8]) at cbd.c:72>
+  | | +-poly_getnoise_eta1_4x() <void poly_getnoise_eta1_4x (poly *r0, poly *r1, poly *r2, poly *r3, const uint8_t seed[32], uint8_t nonce0, uint8_t nonce1, uint8_t nonce2, uint8_t nonce3) at poly.c:403>
+  | | | +-ALIGNED_UINT8()
+  | | | +-shake256x4_absorb_once() <void shake256x4_absorb_once (keccakx4_state *state, const uint8_t *in0, const uint8_t *in1, const uint8_t *in2, const uint8_t *in3, size_t inlen) at fips202x4.c:110>
+  | | | | \-keccakx4_absorb_once() <void keccakx4_absorb_once (__m256i s[25], unsigned int r, const uint8_t *in0, const uint8_t *in1, const uint8_t *in2, const uint8_t *in3, size_t inlen, uint8_t p) at fips202x4.c:12>
+  | | | |   \-KeccakF1600_StatePermute4x()
+  | | | +-shake256x4_squeezeblocks() <void shake256x4_squeezeblocks (uint8_t *out0, uint8_t *out1, uint8_t *out2, uint8_t *out3, size_t nblocks, keccakx4_state *state) at fips202x4.c:120>
+  | | | | \-keccakx4_squeezeblocks() <void keccakx4_squeezeblocks (uint8_t *out0, uint8_t *out1, uint8_t *out2, uint8_t *out3, size_t nblocks, unsigned int r, __m256i s[25]) at fips202x4.c:60>
+  | | | |   \-KeccakF1600_StatePermute4x()
+  | | | \-poly_cbd_eta1() <void poly_cbd_eta1 (poly *r, const __m256i buf[KYBER_ETA1 *KYBER_N / 128 +1]) at cbd.c:126> [see 56]
+  | | +-polyvec_ntt() <void polyvec_ntt (polyvec *r) at polyvec.c:233>
+  | | | \-poly_ntt() <void poly_ntt (poly *r) at poly.c:487>
+  | | |   \-ntt_avx()
+  | | +-polyvec_reduce() <void polyvec_reduce (polyvec *r) at polyvec.c:286>
+  | | | \-poly_reduce() <void poly_reduce (poly *r) at poly.c:552>
+  | | |   \-reduce_avx()
+  | | +-polyvec_basemul_acc_montgomery() <void polyvec_basemul_acc_montgomery (poly *r, const polyvec *a, const polyvec *b) at polyvec.c:265>
+  | | | +-poly_basemul_montgomery() <void poly_basemul_montgomery (poly *r, const poly *a, const poly *b) at poly.c:526>
+  | | | | \-basemul_avx()
+  | | | \-poly_add() <void poly_add (poly *r, const poly *a, const poly *b) at poly.c:567>
+  | | +-poly_tomont() <void poly_tomont (poly *r) at poly.c:539>
+  | | | \-tomont_avx()
+  | | +-polyvec_add() <void polyvec_add (polyvec *r, const polyvec *a, const polyvec *b) at polyvec.c:302>
+  | | | \-poly_add() <void poly_add (poly *r, const poly *a, const poly *b) at poly.c:567> [see 77]
+  | | +-pack_sk() <void pack_sk (uint8_t r[KYBER_INDCPA_SECRETKEYBYTES], polyvec *sk) at indcpa.c:67>
+  | | | \-polyvec_tobytes() <void polyvec_tobytes (uint8_t r[KYBER_POLYVECBYTES], const polyvec *a) at polyvec.c:202>
+  | | |   \-poly_tobytes() <void poly_tobytes (uint8_t r[KYBER_POLYBYTES], const poly *a) at poly.c:253>
+  | | |     \-ntttobytes_avx()
+  | | \-pack_pk() <void pack_pk (uint8_t r[KYBER_INDCPA_PUBLICKEYBYTES], polyvec *pk, const uint8_t seed[KYBER_SYMBYTES]) at indcpa.c:30>
+  | |   +-polyvec_tobytes() <void polyvec_tobytes (uint8_t r[KYBER_POLYVECBYTES], const polyvec *a) at polyvec.c:202> [see 83]
+  | |   \-memcpy()
+  | +-memcpy()
+  | +-hash_h()
+  | \-randombytes() <void randombytes (uint8_t *x, size_t xlen) at test_vectors.c:41> [see 26]
+  +-crypto_kem_enc() <int crypto_kem_enc (uint8_t *ct, uint8_t *ss, const uint8_t *pk) at kem.c:50>
+  | +-randombytes() <void randombytes (uint8_t *x, size_t xlen) at test_vectors.c:41> [see 26]
+  | +-hash_h()
+  | +-hash_g()
+  | +-indcpa_enc() <void indcpa_enc (uint8_t c[KYBER_INDCPA_BYTES], const uint8_t m[KYBER_INDCPA_MSGBYTES], const uint8_t pk[KYBER_INDCPA_PUBLICKEYBYTES], const uint8_t coins[KYBER_SYMBYTES]) at indcpa.c:537>
+  | | +-unpack_pk() <void unpack_pk (polyvec *pk, uint8_t seed[KYBER_SYMBYTES], const uint8_t packedpk[KYBER_INDCPA_PUBLICKEYBYTES]) at indcpa.c:48>
+  | | | +-polyvec_frombytes() <void polyvec_frombytes (polyvec *r, const uint8_t a[KYBER_POLYVECBYTES]) at polyvec.c:219>
+  | | | | \-poly_frombytes() <void poly_frombytes (poly *r, const uint8_t a[KYBER_POLYBYTES]) at poly.c:268>
+  | | | |   \-nttfrombytes_avx()
+  | | | \-memcpy()
+  | | +-poly_frommsg() <void poly_frommsg (poly *restrict r, const uint8_t msg[KYBER_INDCPA_MSGBYTES]) at poly.c:281>
+  | | | \-FROMMSG64()
+  | | +-gen_at()
+  | | +-ALIGNED_UINT8()
+  | | +-aes256ctr_init() <void aes256ctr_init (aes256ctr_ctx *state, const uint8_t key[32], uint64_t nonce) at aes256ctr.c:56> [see 51]
+  | | +-aes256ctr_squeezeblocks() <void aes256ctr_squeezeblocks (uint8_t *out, size_t nblocks, aes256ctr_ctx *state) at aes256ctr.c:112> [see 54]
+  | | +-poly_cbd_eta1() <void poly_cbd_eta1 (poly *r, const __m256i buf[KYBER_ETA1 *KYBER_N / 128 +1]) at cbd.c:126> [see 56]
+  | | +-poly_cbd_eta2() <void poly_cbd_eta2 (poly *r, const __m256i buf[KYBER_ETA2 *KYBER_N / 128]) at cbd.c:137>
+  | | | \-cbd2() <void cbd2 (poly *restrict r, const __m256i buf[2 *KYBER_N / 128]) at cbd.c:16> [see 57]
+  | | +-poly_getnoise_eta1122_4x() <void poly_getnoise_eta1122_4x (poly *r0, poly *r1, poly *r2, poly *r3, const uint8_t seed[32], uint8_t nonce0, uint8_t nonce1, uint8_t nonce2, uint8_t nonce3) at poly.c:438>
+  | | | +-ALIGNED_UINT8()
+  | | | +-shake256x4_absorb_once() <void shake256x4_absorb_once (keccakx4_state *state, const uint8_t *in0, const uint8_t *in1, const uint8_t *in2, const uint8_t *in3, size_t inlen) at fips202x4.c:110> [see 61]
+  | | | +-shake256x4_squeezeblocks() <void shake256x4_squeezeblocks (uint8_t *out0, uint8_t *out1, uint8_t *out2, uint8_t *out3, size_t nblocks, keccakx4_state *state) at fips202x4.c:120> [see 64]
+  | | | +-poly_cbd_eta1() <void poly_cbd_eta1 (poly *r, const __m256i buf[KYBER_ETA1 *KYBER_N / 128 +1]) at cbd.c:126> [see 56]
+  | | | \-poly_cbd_eta2() <void poly_cbd_eta2 (poly *r, const __m256i buf[KYBER_ETA2 *KYBER_N / 128]) at cbd.c:137> [see 109]
+  | | +-poly_getnoise_eta2() <void poly_getnoise_eta2 (poly *r, const uint8_t seed[KYBER_SYMBYTES], uint8_t nonce) at poly.c:394>
+  | | | +-ALIGNED_UINT8()
+  | | | +-prf()
+  | | | \-poly_cbd_eta2() <void poly_cbd_eta2 (poly *r, const __m256i buf[KYBER_ETA2 *KYBER_N / 128]) at cbd.c:137> [see 109]
+  | | +-poly_getnoise_eta1_4x() <void poly_getnoise_eta1_4x (poly *r0, poly *r1, poly *r2, poly *r3, const uint8_t seed[32], uint8_t nonce0, uint8_t nonce1, uint8_t nonce2, uint8_t nonce3) at poly.c:403> [see 59]
+  | | +-polyvec_ntt() <void polyvec_ntt (polyvec *r) at polyvec.c:233> [see 68]
+  | | +-polyvec_basemul_acc_montgomery() <void polyvec_basemul_acc_montgomery (poly *r, const polyvec *a, const polyvec *b) at polyvec.c:265> [see 74]
+  | | +-polyvec_invntt_tomont() <void polyvec_invntt_tomont (polyvec *r) at polyvec.c:248>
+  | | | \-poly_invntt_tomont() <void poly_invntt_tomont (poly *r) at poly.c:504>
+  | | |   \-invntt_avx()
+  | | +-poly_invntt_tomont() <void poly_invntt_tomont (poly *r) at poly.c:504> [see 125]
+  | | +-polyvec_add() <void polyvec_add (polyvec *r, const polyvec *a, const polyvec *b) at polyvec.c:302> [see 80]
+  | | +-poly_add() <void poly_add (poly *r, const poly *a, const poly *b) at poly.c:567> [see 77]
+  | | +-polyvec_reduce() <void polyvec_reduce (polyvec *r) at polyvec.c:286> [see 71]
+  | | +-poly_reduce() <void poly_reduce (poly *r) at poly.c:552> [see 72]
+  | | \-pack_ciphertext() <void pack_ciphertext (uint8_t r[KYBER_INDCPA_BYTES], polyvec *b, poly *v) at indcpa.c:99>
+  | |   +-polyvec_compress() <void polyvec_compress (uint8_t r[KYBER_POLYVECCOMPRESSEDBYTES +2], const polyvec *a) at polyvec.c:157>
+  | |   | +-poly_compress10() <void poly_compress10 (uint8_t r[320], const poly *restrict a) at polyvec.c:11>
+  | |   | | \-memcpy()
+  | |   | \-poly_compress11() <void poly_compress11 (uint8_t r[352 +2], const poly *restrict a) at polyvec.c:75>
+  | |   \-poly_compress() <void poly_compress (uint8_t r[160], const poly *restrict a) at poly.c:173>
+  | |     \-memcpy()
+  | \-kdf()
+  +-crypto_kem_dec() <int crypto_kem_dec (uint8_t *ss, const uint8_t *ct, const uint8_t *sk) at kem.c:93>
+  | +-ALIGNED_UINT8()
+  | +-indcpa_dec() <void indcpa_dec (uint8_t m[KYBER_INDCPA_MSGBYTES], const uint8_t c[KYBER_INDCPA_BYTES], const uint8_t sk[KYBER_INDCPA_SECRETKEYBYTES]) at indcpa.c:618>
+  | | +-unpack_ciphertext() <void unpack_ciphertext (polyvec *b, poly *v, const uint8_t c[KYBER_INDCPA_BYTES]) at indcpa.c:115>
+  | | | +-polyvec_decompress() <void polyvec_decompress (polyvec *r, const uint8_t a[KYBER_POLYVECCOMPRESSEDBYTES +12]) at polyvec.c:180>
+  | | | | +-poly_decompress10() <void poly_decompress10 (poly *restrict r, const uint8_t a[320 +12]) at polyvec.c:50>
+  | | | | \-poly_decompress11() <void poly_decompress11 (poly *restrict r, const uint8_t a[352 +10]) at polyvec.c:118>
+  | | | \-poly_decompress() <void poly_decompress (poly *restrict r, const uint8_t a[160]) at poly.c:210>
+  | | |   \-memcpy()
+  | | +-unpack_sk() <void unpack_sk (polyvec *sk, const uint8_t packedsk[KYBER_INDCPA_SECRETKEYBYTES]) at indcpa.c:80>
+  | | | \-polyvec_frombytes() <void polyvec_frombytes (polyvec *r, const uint8_t a[KYBER_POLYVECBYTES]) at polyvec.c:219> [see 98]
+  | | +-polyvec_ntt() <void polyvec_ntt (polyvec *r) at polyvec.c:233> [see 68]
+  | | +-polyvec_basemul_acc_montgomery() <void polyvec_basemul_acc_montgomery (poly *r, const polyvec *a, const polyvec *b) at polyvec.c:265> [see 74]
+  | | +-poly_invntt_tomont() <void poly_invntt_tomont (poly *r) at poly.c:504> [see 125]
+  | | +-poly_sub() <void poly_sub (poly *r, const poly *a, const poly *b) at poly.c:590>
+  | | +-poly_reduce() <void poly_reduce (poly *r) at poly.c:552> [see 72]
+  | | \-poly_tomsg() <void poly_tomsg (uint8_t msg[KYBER_INDCPA_MSGBYTES], const poly *restrict a) at poly.c:337>
+  | |   \-memcpy()
+  | +-memcpy()
+  | +-hash_g()
+  | +-indcpa_enc() <void indcpa_enc (uint8_t c[KYBER_INDCPA_BYTES], const uint8_t m[KYBER_INDCPA_MSGBYTES], const uint8_t pk[KYBER_INDCPA_PUBLICKEYBYTES], const uint8_t coins[KYBER_SYMBYTES]) at indcpa.c:537> [see 96]
+  | +-verify() <int verify (const uint8_t *a, const uint8_t *b, size_t len) at verify.c:17>
+  | +-hash_h()
+  | +-cmov() <void cmov (uint8_t *restrict r, const uint8_t *x, size_t len, uint8_t b) at verify.c:55>
+  | \-kdf()
+  +-memcmp()
+  +-kex_uake_initA() <void kex_uake_initA (uint8_t *send, uint8_t *tk, uint8_t *sk, const uint8_t *pkb) at kex.c:6>
+  | +-crypto_kem_keypair() <int crypto_kem_keypair (uint8_t *pk, uint8_t *sk) at kem.c:24> [see 24]
+  | \-crypto_kem_enc() <int crypto_kem_enc (uint8_t *ct, uint8_t *ss, const uint8_t *pk) at kem.c:50> [see 92]
+  +-kex_uake_sharedB() <void kex_uake_sharedB (uint8_t *send, uint8_t *k, const uint8_t *recv, const uint8_t *skb) at kex.c:12>
+  | +-crypto_kem_enc() <int crypto_kem_enc (uint8_t *ct, uint8_t *ss, const uint8_t *pk) at kem.c:50> [see 92]
+  | +-crypto_kem_dec() <int crypto_kem_dec (uint8_t *ss, const uint8_t *ct, const uint8_t *sk) at kem.c:93> [see 140]
+  | \-kdf()
+  +-kex_uake_sharedA() <void kex_uake_sharedA (uint8_t *k, const uint8_t *recv, const uint8_t *tk, const uint8_t *sk) at kex.c:20>
+  | +-crypto_kem_dec() <int crypto_kem_dec (uint8_t *ss, const uint8_t *ct, const uint8_t *sk) at kem.c:93> [see 140]
+  | \-kdf()
+  +-kex_ake_initA() <void kex_ake_initA (uint8_t *send, uint8_t *tk, uint8_t *sk, const uint8_t *pkb) at kex.c:30>
+  | +-crypto_kem_keypair() <int crypto_kem_keypair (uint8_t *pk, uint8_t *sk) at kem.c:24> [see 24]
+  | \-crypto_kem_enc() <int crypto_kem_enc (uint8_t *ct, uint8_t *ss, const uint8_t *pk) at kem.c:50> [see 92]
+  +-kex_ake_sharedB() <void kex_ake_sharedB (uint8_t *send, uint8_t *k, const uint8_t *recv, const uint8_t *skb, const uint8_t *pka) at kex.c:36>
+  | +-crypto_kem_enc() <int crypto_kem_enc (uint8_t *ct, uint8_t *ss, const uint8_t *pk) at kem.c:50> [see 92]
+  | +-crypto_kem_dec() <int crypto_kem_dec (uint8_t *ss, const uint8_t *ct, const uint8_t *sk) at kem.c:93> [see 140]
+  | \-kdf()
+  +-kex_ake_sharedA() <void kex_ake_sharedA (uint8_t *k, const uint8_t *recv, const uint8_t *tk, const uint8_t *sk, const uint8_t *ska) at kex.c:45>
+  | +-crypto_kem_dec() <int crypto_kem_dec (uint8_t *ss, const uint8_t *ct, const uint8_t *sk) at kem.c:93> [see 140]
+  | \-kdf()
+  +-test_keys() <int test_keys (void) at test_kyber.c:9>
+  | +-crypto_kem_keypair() <int crypto_kem_keypair (uint8_t *pk, uint8_t *sk) at kem.c:24> [see 24]
+  | +-crypto_kem_enc() <int crypto_kem_enc (uint8_t *ct, uint8_t *ss, const uint8_t *pk) at kem.c:50> [see 92]
+  | +-crypto_kem_dec() <int crypto_kem_dec (uint8_t *ss, const uint8_t *ct, const uint8_t *sk) at kem.c:93> [see 140]
+  | +-memcmp()
+  | \-printf()
+  +-test_invalid_sk_a() <int test_invalid_sk_a (void) at test_kyber.c:34>
+  | +-crypto_kem_keypair() <int crypto_kem_keypair (uint8_t *pk, uint8_t *sk) at kem.c:24> [see 24]
+  | +-crypto_kem_enc() <int crypto_kem_enc (uint8_t *ct, uint8_t *ss, const uint8_t *pk) at kem.c:50> [see 92]
+  | +-randombytes() <void randombytes (uint8_t *x, size_t xlen) at test_vectors.c:41> [see 26]
+  | +-crypto_kem_dec() <int crypto_kem_dec (uint8_t *ss, const uint8_t *ct, const uint8_t *sk) at kem.c:93> [see 140]
+  | +-memcmp()
+  | \-printf()
+  +-test_invalid_ciphertext() <int test_invalid_ciphertext (void) at test_kyber.c:62>
+  | +-randombytes() <void randombytes (uint8_t *x, size_t xlen) at test_vectors.c:41> [see 26]
+  | +-crypto_kem_keypair() <int crypto_kem_keypair (uint8_t *pk, uint8_t *sk) at kem.c:24> [see 24]
+  | +-crypto_kem_enc() <int crypto_kem_enc (uint8_t *ct, uint8_t *ss, const uint8_t *pk) at kem.c:50> [see 92]
+  | +-crypto_kem_dec() <int crypto_kem_dec (uint8_t *ss, const uint8_t *ct, const uint8_t *sk) at kem.c:93> [see 140]
+  | +-memcmp()
+  | \-printf()
+  +-cpucycles() <inline uint64_t cpucycles (void) at cpucycles.h:20>
+  +-gen_matrix() <void gen_matrix (polyvec *a, const uint8_t seed[32], int transposed) at indcpa.c:388>
+  | +-ALIGNED_UINT8()
+  | +-aes256ctr_init() <void aes256ctr_init (aes256ctr_ctx *state, const uint8_t key[32], uint64_t nonce) at aes256ctr.c:56> [see 51]
+  | +-aes256ctr_squeezeblocks() <void aes256ctr_squeezeblocks (uint8_t *out, size_t nblocks, aes256ctr_ctx *state) at aes256ctr.c:112> [see 54]
+  | +-rej_uniform_avx() <unsigned int rej_uniform_avx (int16_t *restrict r, const uint8_t *buf) at rejsample.c:274>
+  | +-rej_uniform() <unsigned int rej_uniform (int16_t *r, unsigned int len, const uint8_t *buf, unsigned int buflen) at indcpa.c:134>
+  | +-poly_nttunpack() <void poly_nttunpack (poly *r) at poly.c:509>
+  | | \-nttunpack_avx()
+  | +-shake128x4_absorb_once() <void shake128x4_absorb_once (keccakx4_state *state, const uint8_t *in0, const uint8_t *in1, const uint8_t *in2, const uint8_t *in3, size_t inlen) at fips202x4.c:90>
+  | | \-keccakx4_absorb_once() <void keccakx4_absorb_once (__m256i s[25], unsigned int r, const uint8_t *in0, const uint8_t *in1, const uint8_t *in2, const uint8_t *in3, size_t inlen, uint8_t p) at fips202x4.c:12> [see 62]
+  | +-shake128x4_squeezeblocks() <void shake128x4_squeezeblocks (uint8_t *out0, uint8_t *out1, uint8_t *out2, uint8_t *out3, size_t nblocks, keccakx4_state *state) at fips202x4.c:100>
+  | | \-keccakx4_squeezeblocks() <void keccakx4_squeezeblocks (uint8_t *out0, uint8_t *out1, uint8_t *out2, uint8_t *out3, size_t nblocks, unsigned int r, __m256i s[25]) at fips202x4.c:60> [see 65]
+  | +-shake128_absorb_once() <void shake128_absorb_once (keccak_state *state, const uint8_t *in, size_t inlen) at fips202.c:580>
+  | | \-keccak_absorb_once() <void keccak_absorb_once (uint64_t s[25], unsigned int r, const uint8_t *in, size_t inlen, uint8_t p) at fips202.c:461>
+  | |   +-load64() <uint64_t load64 (const uint8_t x[8]) at fips202.c:22>
+  | |   \-KeccakF1600_StatePermute() <void KeccakF1600_StatePermute (uint64_t state[25]) at fips202.c:82>
+  | |     \-ROL()
+  | \-shake128_squeezeblocks() <void shake128_squeezeblocks (uint8_t *out, size_t nblocks, keccak_state *state) at fips202.c:598>
+  |   \-keccak_squeezeblocks() <void keccak_squeezeblocks (uint8_t *out, size_t nblocks, uint64_t s[25], unsigned int r) at fips202.c:500>
+  |     +-KeccakF1600_StatePermute() <void KeccakF1600_StatePermute (uint64_t state[25]) at fips202.c:82> [see 222]
+  |     \-store64() <void store64 (uint8_t x[8], uint64_t u) at fips202.c:40>
+  +-print_results() <void print_results (const char *s, uint64_t *t, size_t tlen) at speed_print.c:31>
+  | +-fprintf()
+  | +-cpucycles_overhead() <uint64_t cpucycles_overhead (void) at cpucycles.c:4>
+  | | \-cpucycles() <inline uint64_t cpucycles (void) at cpucycles.h:20> [see 206]
+  | +-printf()
+  | +-median() <uint64_t median (uint64_t *l, size_t llen) at speed_print.c:14>
+  | | +-qsort()
+  | | \-cmp_uint64() <int cmp_uint64 (const void *a, const void *b) at speed_print.c:8>
+  | \-average() <uint64_t average (uint64_t *t, size_t tlen) at speed_print.c:21>
+  +-poly_getnoise_eta1() <void poly_getnoise_eta1 (poly *r, const uint8_t seed[KYBER_SYMBYTES], uint8_t nonce) at poly.c:375>
+  | +-ALIGNED_UINT8()
+  | +-prf()
+  | \-poly_cbd_eta1() <void poly_cbd_eta1 (poly *r, const __m256i buf[KYBER_ETA1 *KYBER_N / 128 +1]) at cbd.c:126> [see 56]
+  +-poly_getnoise_eta2() <void poly_getnoise_eta2 (poly *r, const uint8_t seed[KYBER_SYMBYTES], uint8_t nonce) at poly.c:394> [see 117]
+  +-poly_getnoise_eta1_4x() <void poly_getnoise_eta1_4x (poly *r0, poly *r1, poly *r2, poly *r3, const uint8_t seed[32], uint8_t nonce0, uint8_t nonce1, uint8_t nonce2, uint8_t nonce3) at poly.c:403> [see 59]
+  +-poly_ntt() <void poly_ntt (poly *r) at poly.c:487> [see 69]
+  +-poly_invntt_tomont() <void poly_invntt_tomont (poly *r) at poly.c:504> [see 125]
+  +-polyvec_basemul_acc_montgomery() <void polyvec_basemul_acc_montgomery (poly *r, const polyvec *a, const polyvec *b) at polyvec.c:265> [see 74]
+  +-poly_tomsg() <void poly_tomsg (uint8_t msg[KYBER_INDCPA_MSGBYTES], const poly *restrict a) at poly.c:337> [see 156]
+  +-poly_frommsg() <void poly_frommsg (poly *restrict r, const uint8_t msg[KYBER_INDCPA_MSGBYTES]) at poly.c:281> [see 102]
+  +-poly_compress() <void poly_compress (uint8_t r[160], const poly *restrict a) at poly.c:173> [see 137]
+  +-poly_decompress() <void poly_decompress (poly *restrict r, const uint8_t a[160]) at poly.c:210> [see 147]
+  +-polyvec_compress() <void polyvec_compress (uint8_t r[KYBER_POLYVECCOMPRESSEDBYTES +2], const polyvec *a) at polyvec.c:157> [see 133]
+  +-polyvec_decompress() <void polyvec_decompress (polyvec *r, const uint8_t a[KYBER_POLYVECCOMPRESSEDBYTES +12]) at polyvec.c:180> [see 144]
+  +-indcpa_keypair() <void indcpa_keypair (uint8_t pk[KYBER_INDCPA_PUBLICKEYBYTES], uint8_t sk[KYBER_INDCPA_SECRETKEYBYTES]) at indcpa.c:460> [see 25]
+  +-indcpa_enc() <void indcpa_enc (uint8_t c[KYBER_INDCPA_BYTES], const uint8_t m[KYBER_INDCPA_MSGBYTES], const uint8_t pk[KYBER_INDCPA_PUBLICKEYBYTES], const uint8_t coins[KYBER_SYMBYTES]) at indcpa.c:537> [see 96]
+  \-indcpa_dec() <void indcpa_dec (uint8_t m[KYBER_INDCPA_MSGBYTES], const uint8_t c[KYBER_INDCPA_BYTES], const uint8_t sk[KYBER_INDCPA_SECRETKEYBYTES]) at indcpa.c:618> [see 142]
